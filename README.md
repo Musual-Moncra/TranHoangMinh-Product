@@ -6,66 +6,139 @@
 
 [![Roblox](https://img.shields.io/badge/Roblox-Powered-00A2FF?style=for-the-badge&logo=roblox&logoColor=white)](https://www.roblox.com)
 [![Rojo](https://img.shields.io/badge/Rojo-v7.7.0--rc.1-D32F2F?style=for-the-badge&logo=github&logoColor=white)](https://github.com/rojo-rbx/rojo)
+[![Luau](https://img.shields.io/badge/Luau-Typed-7B68EE?style=for-the-badge&logo=lua&logoColor=white)](https://luau-lang.org)
 [![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
 
-**A premium Roblox development suite optimized for scale and performance.**
+**Một Roblox game framework hiện đại — kiến trúc module, data-driven, và sẵn sàng mở rộng.**
 
 ---
 
-[Explore Docs](https://rojo.space/docs) • [Report Bug](https://github.com/musual/TranHoangMinh-Product/issues) • [Request Feature](https://github.com/musual/TranHoangMinh-Product/issues)
+[Tài liệu kỹ thuật](TECHNICAL.md) • [Báo lỗi](https://github.com/musual/TranHoangMinh-Product/issues) • [Yêu cầu tính năng](https://github.com/musual/TranHoangMinh-Product/issues)
 
 </div>
 
-## 🚀 Features
+---
 
-- 💎 **Modern Architecture**: Built with the latest Rojo standards.
-- ⚡ **High Performance**: Optimized for minimal latency and maximum throughput.
-- 📦 **Modular Design**: Easy to extend and integrate with other components.
-- 🛡️ **Type Safety**: Leveraging Luau's type checking for robust code.
+## 🎮 Tổng quan
 
-## 📥 Getting Started
+**TranHoangMinh-Product** là một Roblox game project được xây dựng với kiến trúc module hiện đại, sử dụng [Rojo](https://rojo.space) để quản lý source code bên ngoài Roblox Studio. Dự án áp dụng mô hình **Client-Server Authority** nghiêm ngặt, đảm bảo an toàn và hiệu suất.
 
-To get a local copy up and running, follow these simple steps.
+### Tính năng chính
 
-### Prerequisites
+| Tính năng | Mô tả | Trạng thái |
+|---|---|---|
+| 💾 **Data System** | Lưu/tải dữ liệu player với DataStore, auto-save 60s | ✅ Hoàn thiện |
+| 🔄 **Rebirth System** | Rebirth để đổi Cash lấy buff vĩnh viễn (Speed, Jump) | ✅ Hoàn thiện |
+| 📦 **Item Spawner** | Hệ thống spawn item configurable với Touch/Click/Prompt | ✅ Hoàn thiện |
+| 🎨 **Item Visuals** | Highlight item theo rarity, distance-based rendering | ✅ Hoàn thiện |
+| 🖥️ **GUI System** | Main HUD, Rebirth panel với tween animations | ✅ Hoàn thiện |
+| 🎬 **Animation Handler** | Wrapper module cho Roblox Animator API | ✅ Hoàn thiện |
 
-- [Rojo](https://rojo.space/docs/v7/installation/) (v7.0+)
-- [Aftman](https://github.com/lpghatguy/aftman)
+---
 
-### Installation
+## 🏗️ Kiến trúc
 
-1. Clone the repo:
-   ```bash
-   git clone https://github.com/musual/TranHoangMinh-Product.git
-   ```
-2. Install dependencies:
-   ```bash
-   aftman install
-   ```
-
-## 🛠️ Usage
-
-Build the project file:
-```bash
-rojo build -o "TranHoangMinh-Product.rbxlx"
+```
+src/
+├── api/                    → ServerStorage (Server-only API)
+│   └── data/               → Data manipulation modules
+├── client/                 → StarterPlayerScripts  
+│   ├── gui/                → GUI controllers
+│   └── main/               → Client-side logic
+├── server/                 → ServerScriptService
+│   ├── library/            → Server-side systems (Item Spawner)
+│   ├── main/               → Core server scripts (DataManager)
+│   ├── remotes/            → Remote event handlers
+│   └── setup/              → Bootstrap scripts (Physics, Character)
+└── storage/                → ReplicatedStorage (Shared)
+    ├── config/             → Game configurations
+    └── shared/             → Shared utility modules
 ```
 
-Start the Rojo server:
+> **Rojo Mapping:** `src/api` → `ServerStorage` · `src/client` → `StarterPlayerScripts` · `src/server` → `ServerScriptService` · `src/storage` → `ReplicatedStorage`
+
+---
+
+## 🚀 Bắt đầu
+
+### Yêu cầu
+
+- [Roblox Studio](https://www.roblox.com/create)
+- [Rojo](https://rojo.space/docs/v7/installation/) (v7.0+)
+- [Aftman](https://github.com/lpghatguy/aftman) (Toolchain Manager)
+
+### Cài đặt
+
 ```bash
+# 1. Clone repo
+git clone https://github.com/musual/TranHoangMinh-Product.git
+cd TranHoangMinh-Product
+
+# 2. Cài toolchain
+aftman install
+
+# 3. Build project
+rojo build -o "TranHoangMinh-Product.rbxlx"
+
+# 4. Hoặc khởi động live-sync server
 rojo serve
 ```
 
-Next, open `TranHoangMinh-Product.rbxlx` in Roblox Studio and connect via the Rojo plugin.
+### Kết nối Roblox Studio
+
+1. Mở `TranHoangMinh-Product.rbxlx` trong Roblox Studio
+2. Cài [Rojo Plugin](https://www.roblox.com/library/13916111004/Rojo) 
+3. Click **"Connect"** trong Rojo plugin để đồng bộ code
+
+---
+
+## 📚 Tài liệu
+
+| Tài liệu | Mô tả |
+|---|---|
+| [📖 TECHNICAL.md](TECHNICAL.md) | Tài liệu kỹ thuật chi tiết cho developer |
+| [🔧 default.project.json](default.project.json) | Rojo project configuration |
+| [📦 aftman.toml](aftman.toml) | Toolchain dependencies |
+
+---
+
+## 🔧 Shared Modules
+
+Các module tiện ích dùng chung giữa Client và Server (nằm trong `ReplicatedStorage.shared`):
+
+### `tween` — Tween Wrapper
+```lua
+local Tween = require(ReplicatedStorage.shared.tween)
+Tween:Play(instance, {0.5, "Quad", "Out"}, {Transparency = 0})
+```
+
+### `numberformat` — Định dạng số
+```lua
+local Format = require(ReplicatedStorage.shared.numberformat)
+Format(1234567, "Suffix")  -- "1.23m"
+Format(1234567, "Commas")  -- "1,234,567"
+```
+
+### `animation` — Animation Handler
+```lua
+local Anim = require(ReplicatedStorage.shared.animation)
+local handler = Anim.new(humanoid)
+handler:Play("Attack", "rbxassetid://123", { Speed = 1.5 })
+handler:Stop("Attack")
+handler:Destroy()
+```
+
+---
 
 ## 🤝 Contributing
 
-Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+1. Fork dự án
+2. Tạo Feature Branch (`git checkout -b feature/TinhNangMoi`)
+3. Commit Changes (`git commit -m 'Thêm tính năng XYZ'`)
+4. Push to Branch (`git push origin feature/TinhNangMoi`)
+5. Mở Pull Request
 
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+---
 
 ## 📄 License
 
@@ -74,5 +147,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 ---
 
 <div align="center">
-Created with ❤️ by <b>TranHoangMinh</b>
+
+Created with ❤️ by **TranHoangMinh** (Musual)
+
 </div>
