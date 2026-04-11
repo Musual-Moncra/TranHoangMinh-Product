@@ -34,6 +34,9 @@ local UIScale = Gui:FindFirstChild("UIScale")
 
 local RightFrame = Gui:FindFirstChild("Right")
 local ButtonFrame = RightFrame:FindFirstChild("ButtonFrame")
+local RebirthButton = RightFrame:FindFirstChild("ButtonFrame"):FindFirstChild("Rebirth") -- ấn để mở / tắt
+local RebirthUI = PlayerGui:WaitForChild("Rebirth")
+local RBMainFrame = RebirthUI:FindFirstChild("MainFrame") -- Canvas group tween group transparency và visible true / falsse
 
 -- Helper func
 local function UpdateValue()
@@ -120,4 +123,11 @@ end
 
 Default()
 UpdateValue()
+
+-- 4. Rebirth button toggle
+RebirthButton.MouseButton1Click:Connect(function()
+	if _G.ToggleRebirthUI then
+		_G.ToggleRebirthUI()
+	end
+end)
 
